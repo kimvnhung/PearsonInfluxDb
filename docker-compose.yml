@@ -1,0 +1,18 @@
+version: "3.5"
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influx_db
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb-storage:/var/lib/influxdb
+      - ./data:/var/opt
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./query:/var/opt/query"
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_ADMIN_TOKEN=1234
